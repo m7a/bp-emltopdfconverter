@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="build">
+
+<!-- APPLICATION METADATA -->
+<property name="mdpc.name"    value="mdvl-emltopdfconverter"/>
+<property name="mdpc.section" value="java"/>
+<property name="mdpc.descrs"  value="Convert raw e-mail files to PDF"/>
+<property name="mdpc.arch"    value="all"/>
+<property name="mdpc.depends" value="default-jre, wkhtmltopdf"/>
+<property name="mdpc.bdep"    value="default-jdk"/>
+<property name="mdpc.descrl">
+ This software can be used to convert eml files (emails as plain text in
+ MIME format) to pdf files. It can be used as a library, command line tool or
+ desktop application with its GUI.
+ .
+ The conversion is done by parsing (and cleaning) the mime/structure, converting
+ it to html and then using wkhtmltopdf to convert the generated html to a pdf
+ file.
+ .
+ It also handles inline images, corrupt mime headers and can use a proxy.
+</property>
+<!-- copyright year obtained from a java source file -->
+<property name="mdpc.copyright.file"><![CDATA[
+Files: *
+Copyright: Copyright 2016 Nick Russler
+License: Apache-2.0
+
+Files: build.xml emltopdfconverter
+Copyright: Copyright (c) 2020 Ma_Sys.ma <Ma_Sys.ma@web.de>
+License: GPL-3+
+
+License: GPL-3+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+License-Reference: /usr/share/common-licenses/GPL-3
+
+License: Apache-2.0
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ .
+ http://www.apache.org/licenses/LICENSE-2.0
+ .
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+License-Reference: /usr/share/common-licenses/Apache-2.0
+]]></property>
+
+<property name="mdpc.file.install">
+build/build/libs/emailconverter-2.0.1-all.jar /usr/share/java
+emltopdfconverter /usr/bin
+</property>
+
+<!-- PART OF TPL HERE FOR USE IN BUILD -->
+<property environment="env"/>
+<condition property="masysma.internal.includepath.rel" value="${env.MDVL_CI_PHOENIX_ROOT}" else=".."><isset property="env.MDVL_CI_PHOENIX_ROOT"/></condition>
+<property name="masysma.internal.includepath" location="${masysma.internal.includepath.rel}"/>
+
+<!-- SPECIFIC BUILD -->
+<target name="download">
+<masysma_require_artifact masysmaartifact="emltopdf.git" masysmaatarget="build"
+	masysmaadef="https://github.com/nickrussler/eml-to-pdf-converter"/>
+</target>
+
+<target name="build" depends="download">
+	<exec executable="./gradlew" dir="build">
+		<arg value="shadowJar"/>
+	</exec>
+</target>
+
+<target name="clean"><delete dir="build"/></target>
+<target name="dist-clean" depends="clean"/>
+
+<!-- CI INTEGRATION -->
+<target name="package_triggered" depends="package">
+	<property name="masysma.ci.trigger" value="newver"/>
+</target>
+
+<!-- TPL IMPORT (PARTIALLY GIVEN ABOVE) -->
+<property name="masysma.internal.loadpath" value="${masysma.internal.includepath}/co-build/ant-build-template.xml"/>
+<condition property="masysma.internal.load" value="file://${masysma.internal.loadpath}" else="https://raw.githubusercontent.com/m7a/co-build/master/ant-build-template.xml"><resourceexists><file file="${masysma.internal.loadpath}"/></resourceexists></condition>
+<import><url url="${masysma.internal.load}"/></import>
+
+</project>
