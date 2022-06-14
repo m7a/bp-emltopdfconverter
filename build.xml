@@ -26,7 +26,7 @@ Copyright: Copyright 2016 Nick Russler
 License: Apache-2.0
 
 Files: build.xml emltopdfconverter
-Copyright: Copyright (c) 2020 Ma_Sys.ma <Ma_Sys.ma@web.de>
+Copyright: Copyright (c) 2020, 2022 Ma_Sys.ma <Ma_Sys.ma@web.de>
 License: GPL-3+
 
 License: GPL-3+
@@ -60,7 +60,7 @@ License-Reference: /usr/share/common-licenses/Apache-2.0
 ]]></property>
 
 <property name="mdpc.file.install">
-build/build/libs/emailconverter-2.0.1-all.jar /usr/share/java
+build/build/libs/emailconverter-2.5.3-all.jar /usr/share/java
 emltopdfconverter /usr/bin
 </property>
 
