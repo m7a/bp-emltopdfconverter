@@ -1,3 +1,9 @@
+mdvl-emltopdfconverter (1.0.2) stable; urgency=medium
+
+  * Relax JDK dependency.
+
+ -- Ma_Sys.ma Linux-Fan <Ma_Sys.ma@web.de>  Tue, 14 Jun 2022 21:03:00 +0200
+
 mdvl-emltopdfconverter (1.0.1) stable; urgency=medium
 
   * Bump version to 2.5.3 (most recent master).
