@@ -7,7 +7,8 @@
 <property name="mdpc.descrs"  value="Convert raw e-mail files to PDF"/>
 <property name="mdpc.arch"    value="all"/>
 <property name="mdpc.depends" value="default-jre, wkhtmltopdf"/>
-<property name="mdpc.bdep"    value="default-jdk | openjdk-17-jdk, gradle"/>
+<property name="mdpc.bdep">debhelper-compat (= 13), config-package-dev,
+				default-jdk | openjdk-17-jdk, gradle</property>
 <property name="mdpc.descrl">
  This software can be used to convert eml files (emails as plain text in
  MIME format) to pdf files. It can be used as a library, command line tool or
